@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: PaymentScreen(),
+    );
+  }
+}
+
+class PaymentScreen extends StatefulWidget {
+  @override
+  _PaymentScreenState createState() => _PaymentScreenState();
+}
+
+class _PaymentScreenState extends State<PaymentScreen> {
+  int _selectedPaymentMethod = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Thanh toán'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Thanh Toán',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
+            Card(
+              child: ListTile(
+                leading: Image.network(
+                    'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6adf79a4-4326-4a02-b625-d30832b9fc8d/air-force-1-shadow-shoe-VzTJFT.png'), // Thay thế bằng URL hình ảnh của bạn
+                title: Text('Nike Air Force 1 Shadow'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Size: 10'),
+                    Text('Số lượng: 1'),
+                    Text('3.829.000đ'),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Tổng tiền',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              '4.032.829đ',
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Phương Thức Thanh Toán:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            RadioListTile(
+              value: 0,
+              groupValue: _selectedPaymentMethod,
+              title: Text('Thanh Toán Bằng MoMo'),
+              secondary: Image.network(
+                  'https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png', width: 40), // Thay thế bằng URL hình ảnh của bạn
+              onChanged: (value) {
+                setState(() {
+                  _selectedPaymentMethod = value as int;
+                });
+              },
+            ),
+            RadioListTile(
+              value: 1,
+              groupValue: _selectedPaymentMethod,
+              title: Text('Thanh Toán Bằng Tiền Mặt'),
+              secondary: Icon(Icons.attach_money),
+              onChanged: (value) {
+                setState(() {
+                  _selectedPaymentMethod = value as int;
+                });
+              },
+            ),
+            SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  // Xử lý xác nhận thanh toán
+                },
+                child: Text('Xác Nhận Thanh toán'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  textStyle: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Trang Chủ'),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Đơn Hàng'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Yêu Thích'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Giỏ Hàng'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Cá Nhân'),
+        ],
+      ),
+    );
+  }
+}
